@@ -3,6 +3,7 @@
 	Properties
 	{
 		_MainTex ("Texture", 2D) = "white" {}
+		_LUT ("Colour LUT", 2D) = "white" {}
 	}
 	SubShader
 	{
@@ -14,8 +15,6 @@
 			CGPROGRAM
 			#pragma vertex vert
 			#pragma fragment frag
-			// make fog work
-			#pragma multi_compile_fog
 			
 			#include "UnityCG.cginc"
 
@@ -28,11 +27,11 @@
 			struct v2f
 			{
 				float2 uv : TEXCOORD0;
-				UNITY_FOG_COORDS(1)
 				float4 vertex : SV_POSITION;
 			};
 
 			sampler2D _MainTex;
+			sampler2D _LUT;
 			float4 _MainTex_ST;
 			
 			v2f vert (appdata v)
@@ -48,9 +47,12 @@
 			{
 				// sample the texture
 				fixed4 col = tex2D(_MainTex, i.uv);
-				// apply fog
-				UNITY_APPLY_FOG(i.fogCoord, col);
-				return col;
+				float2 uv = 
+					float2(
+						floor(col.b * 15.0) / 16.0, 
+						col.g * 15.0 / 16.0 + 1.0 / 32.0) + 
+					float2(col.r * 15.0 / 256.0 + 1.0 / 512.0, 0);
+				return tex2D(_LUT, uv);
 			}
 			ENDCG
 		}
