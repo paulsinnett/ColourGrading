@@ -52,7 +52,8 @@
 						floor(col.b * 15.0) / 16.0, 
 						col.g * 15.0 / 16.0 + 1.0 / 32.0) + 
 					float2(col.r * 15.0 / 256.0 + 1.0 / 512.0, 0);
-				return tex2D(_LUT, uv);
+				col.rgb = tex2D(_LUT, uv).rgb;
+				return col;
 			}
 			ENDCG
 		}
