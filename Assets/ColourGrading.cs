@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ColourGrading : MonoBehaviour
 {
+	public Texture2D nullLUT;
+	public Texture2D colourGradingLUT;
 	public Material colourGrading;
 
 	void OnRenderImage(RenderTexture source, RenderTexture destination)
@@ -13,10 +15,27 @@ public class ColourGrading : MonoBehaviour
 		Graphics.Blit(source, destination, colourGrading);
 	}
 
-	void Start()
+	void Update()
 	{
-		Texture2D texture = colourGrading.GetTexture("_LUT") as Texture2D;
-		Color colour = texture.GetPixel(0, 0);
-		Debug.Log(colour);
+		if (Input.GetKeyDown(KeyCode.Space) ||
+			OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger))
+		{
+			if (colourGrading.GetTexture("_LUT") == nullLUT)
+			{
+				Debug.LogFormat(
+					"Switching to texture {0}",
+					colourGradingLUT);
+
+				colourGrading.SetTexture("_LUT", colourGradingLUT);
+			}
+			else
+			{
+				Debug.LogFormat(
+					"Switching to texture {0}",
+					nullLUT);
+
+				colourGrading.SetTexture("_LUT", nullLUT);
+			}
+		}
 	}
 }
