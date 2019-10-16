@@ -210,7 +210,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nullLUT: {fileID: 2800000, guid: 6d714f570c298f14c8a1a1e7773a83d9, type: 3}
-  colourGradingLUT: {fileID: 2800000, guid: ec0414fe83fe17b44a12723a7731cd54, type: 3}
+  colourGradingLUT: {fileID: 2800000, guid: 4ae59765bbb86294490ae026376718cd, type: 3}
   colourGrading: {fileID: 2100000, guid: c45273f4ad607f845bd37dcf0cb28611, type: 2}
 --- !u!114 &534669907
 MonoBehaviour:

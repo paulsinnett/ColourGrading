@@ -15,7 +15,7 @@ public class ColourGradingEditor : Editor
         if (GUILayout.Button("Generate Default LUT"))
         {
             Texture2D lut =
-                new Texture2D(256, 16, TextureFormat.RGB24, false, false);
+                new Texture2D(256, 16, TextureFormat.RGB24, false, true);
 
             Color[] pixels = lut.GetPixels();
 
