@@ -88,7 +88,7 @@ public class OVRDebugInfo : MonoBehaviour
         // Create canvas for using new GUI
         debugUIManager = new GameObject();
         debugUIManager.name = "DebugUIManager";
-        debugUIManager.transform.parent = GameObject.Find("LeftEyeAnchor").transform;
+        debugUIManager.transform.parent = GameObject.Find("Main Camera").transform;
 
         RectTransform rectTransform = debugUIManager.AddComponent<RectTransform>();
         rectTransform.sizeDelta = new Vector2(100f, 100f);
@@ -111,7 +111,10 @@ public class OVRDebugInfo : MonoBehaviour
             InitUIComponents();
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && riftPresentTimeout < 0.0f)
+        if (OVRInput.GetDown(
+                OVRInput.Button.PrimaryIndexTrigger,
+                OVRInput.Controller.RTouch) 
+            && riftPresentTimeout < 0.0f)
         {
             initUIComponent = true;
             showVRVars ^= true;
