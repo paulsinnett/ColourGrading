@@ -33,7 +33,9 @@ public class TestColourGrading : MonoBehaviour
             applyingGrading = !applyingGrading;
 
             colourGrading.SetColourGrading(
-                applyingGrading? grading3D : null);
+                applyingGrading?
+                    grading3D : 
+                    colourGrading.GetDefaultGrading());
         }
     }
 }

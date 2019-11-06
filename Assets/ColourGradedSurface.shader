@@ -22,7 +22,9 @@
         #pragma target 3.0
 
         sampler2D _MainTex;
-        sampler3D _ColourGradingLUT;
+        sampler3D _ColourGradingLUT0;
+        sampler3D _ColourGradingLUT1;
+        float _ColourGradingFade;
 
         struct Input
         {
@@ -55,7 +57,13 @@
         {
             #if GRADING && !FORWARDADD
             float3 uvw = color.rbg * (255.0 / 256.0) + (1.0 / 32.0);
-            color.rgb = tex3D(_ColourGradingLUT, uvw);
+
+            color.rgb =
+                lerp(
+                    tex3D(_ColourGradingLUT0, uvw),
+                    tex3D(_ColourGradingLUT1, uvw),
+                    _ColourGradingFade);
+
             #endif
         }
         ENDCG
